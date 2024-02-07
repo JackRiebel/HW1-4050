@@ -16,6 +16,7 @@ import java.util.Random;
 public class SortShow extends JPanel { 
 
 	//test
+	//test2
 		// An array to hold the lines_lengths to be sorted
 		public int[] lines_lengths;
 		//The amount of lines needed
