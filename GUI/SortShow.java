@@ -77,6 +77,8 @@ public class SortShow extends JPanel {
 			//You need to complete this part.
 			for(int i = 0; i < total_number_of_lines-1; i ++){
 				swap(i, getIndexOfSmallest(i, total_number_of_lines-1));
+				paintComponent(this.getGraphics());
+				delay(10);
 			}
 			//getting the date and time when the selection sort ends
 			Calendar end = Calendar.getInstance();
@@ -91,7 +93,7 @@ public class SortShow extends JPanel {
 			//You need to complete this part.
 			int minIndex = first;
 			for(int i = first+1; i <= last; i++){
-				if(tempArray[i] < tempArray[minIndex]){
+				if(lines_lengths[i] < lines_lengths[minIndex]){
 					minIndex = i;
 				}
 			}
