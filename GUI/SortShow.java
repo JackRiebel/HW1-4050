@@ -322,10 +322,13 @@ public class SortShow extends JPanel {
 			Calendar start = Calendar.getInstance();
 
 			for(int i = 1; i < total_number_of_lines-1; i++){
-
+				//Holding onto the value of next value to be sorted.
 				int myVal = lines_lengths[i];
+				//Determining position of this value within the sorted portion of the array.
 				int pos = InsertionFindPos(i, myVal);
+				//Shifting sorted array elements to the right in order to make room for new value.
 				InsertionShiftRight(pos, i);
+				//Storing new value in its designated position.
 				lines_lengths[pos] = myVal;
 				paintComponent(this.getGraphics());
 				delay(10);
@@ -336,6 +339,7 @@ public class SortShow extends JPanel {
 			SortGUI.insertionTime = end.getTime().getTime() - start.getTime().getTime();
 
 		}
+		//This function finds the position that the passed key should be placed in up to the passed last point of the array.
 		public int InsertionFindPos(int last, int key){
 			int itr = 0;
 			while(key > lines_lengths[itr] && itr < last){
@@ -343,6 +347,7 @@ public class SortShow extends JPanel {
 			}
 			return itr;
 		}
+		//This function shifts all elements from first to last-1 1 position to the right.
 		public void InsertionShiftRight(int first, int last){
 			for(int itr = last; itr > first; itr--) {
 				lines_lengths[itr] = lines_lengths[itr - 1];
