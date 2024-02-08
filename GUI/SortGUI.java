@@ -277,7 +277,7 @@ public class SortGUI {
 			bubble.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//Sorting the array in the iterative merge sort method
-					sortArea.BubbleSort();
+					//sortArea.BubbleSort();
 					//The amount of time taken for iterative merge sort took
 					bubble_time_taken.setText((bubbleTime / 1000) + " Seconds");
 					//iterative merge sort has finished/been clicked
@@ -290,7 +290,7 @@ public class SortGUI {
 			quick.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//Sorting the array in the iterative merge sort method
-					sortArea.QuickSort();
+					//sortArea.QuickSort();
 					//The amount of time taken for iterative merge sort took
 					quick_time_taken.setText((quickTime / 1000) + " Seconds");
 					//iterative merge sort has finished/been clicked
@@ -303,7 +303,7 @@ public class SortGUI {
 			shell.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//Sorting the array in the iterative merge sort method
-					sortArea.ShellSort();
+					//sortArea.ShellSort();
 					//The amount of time taken for iterative merge sort took
 					shell_time_taken.setText((shellTime / 1000) + " Seconds");
 					//iterative merge sort has finished/been clicked
