@@ -312,7 +312,7 @@ public class SortShow extends JPanel {
 
 
 			Calendar end = Calendar.getInstance();
-			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
+			SortGUI.quickTime = end.getTime().getTime() - start.getTime().getTime();
 		}
 
 		public void ShellSort(){
