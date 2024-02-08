@@ -76,9 +76,7 @@ public class SortShow extends JPanel {
 
 			//You need to complete this part.
 			for(int i = 0; i < total_number_of_lines-1; i ++){
-				//Finding the smallest element of the remaining array and swapping it for the next spot in the sorted portion.
 				swap(i, getIndexOfSmallest(i, total_number_of_lines-1));
-
 				paintComponent(this.getGraphics());
 				delay(10);
 			}
@@ -106,38 +104,107 @@ public class SortShow extends JPanel {
 
 		//recursive merge sort method
 		public void R_MergeSort(){
-			//getting the date and time when the recursive merge sort starts
+			//getting the date and time when the iterative merge sort starts
 			Calendar start = Calendar.getInstance();
 			//assigning the size for the tempArray below
+			tempArray = new int[total_number_of_lines];
+			//saving the value of total_number_of_lines
+			int beginLeftovers = total_number_of_lines;
 
-			//You need to complete this part.
 
+			for (int segmentLength = 1; segmentLength <= total_number_of_lines/2; segmentLength = 2*segmentLength)
+			{
+				beginLeftovers = I_MergeSegmentPairs(total_number_of_lines, segmentLength);
+				int endSegment = beginLeftovers + segmentLength - 1;
+				if (endSegment < total_number_of_lines - 1)
+				{
+					I_Merge(beginLeftovers, endSegment, total_number_of_lines - 1);
+				}
+			}
+
+			// merge the sorted leftovers with the rest of the sorted array
+			if (beginLeftovers < total_number_of_lines) {
+				I_Merge(0, beginLeftovers-1, total_number_of_lines - 1);
+			}
+			//getting the date and time when the recursive merge sort ends
 			Calendar end = Calendar.getInstance();
 			//getting the time it took for the iterative merge sort to execute
 			//subtracting the end time with the start time
+			SortGUI.rmergeTime = end.getTime().getTime() - start.getTime().getTime();
+
 	        SortGUI.rmergeTime = end.getTime().getTime() - start.getTime().getTime();
 
 		}
 
 		//recursive merge sort method
-		public void R_MergeSort(int first, int last){
-			if(first < last){
+		public void R_MergeSort(int first, int last) {
+			if (first < last) {
+				// Find the middle point
+				int mid = first + (last - first) / 2;
 
-				//You need to complete this part.
+				// Sort first and second halves
+				R_MergeSort(first, mid);
+				R_MergeSort(mid + 1, last);
 
+				// Merge the sorted halves
+				R_Merge(first, mid, last);
+
+				// Redraw the array after each merge
+				paintComponent(this.getGraphics());
 				//Causing a delay for 10ms
 				delay(10);
 			}
 		}
 
 
-		//recursive merge sort method
-		public void R_Merge(int first, int mid, int last){
 
-			//You need to complete this part.
+	//recursive merge sort method
+	public void R_Merge(int first, int mid, int last) {
+		// Sizes of two sub-arrays to be merged
+		int n1 = mid - first + 1;
+		int n2 = last - mid;
 
+		// Temporary arrays
+		int[] leftArray = new int[n1];
+		int[] rightArray = new int[n2];
+
+		// Copy data to temporary arrays
+		System.arraycopy(lines_lengths, first, leftArray, 0, n1);
+		System.arraycopy(lines_lengths, mid + 1, rightArray, 0, n2);
+
+		// Initial indexes of first and second subarrays
+		int i = 0, j = 0;
+
+		// Initial index of merged subarray
+		int k = first;
+		while (i < n1 && j < n2) {
+			if (leftArray[i] <= rightArray[j]) {
+				lines_lengths[k] = leftArray[i];
+				i++;
+			} else {
+				lines_lengths[k] = rightArray[j];
+				j++;
+			}
+			k++;
 		}
 
+		// Copy remaining elements of leftArray[] if any
+		while (i < n1) {
+			lines_lengths[k] = leftArray[i];
+			i++;
+			k++;
+		}
+
+		// Copy remaining elements of rightArray[] if any
+		while (j < n2) {
+			lines_lengths[k] = rightArray[j];
+			j++;
+			k++;
+		}
+	}
+
+
+	//
 		//
 
 	//////////////////////////////////////////////////////////////////////////////////////////
@@ -169,15 +236,15 @@ public class SortShow extends JPanel {
 		}
 		//getting the date and time when the iterative merge sort ends
 		Calendar end = Calendar.getInstance();
-		//getting the time it took for the iterative merge sort to execute 
+		//getting the time it took for the iterative merge sort to execute
 		//subtracting the end time with the start time
 	    SortGUI.imergeTime = end.getTime().getTime() - start.getTime().getTime();
 	}
 
-	// Merges segments pairs (certain length) within an array 
+	// Merges segments pairs (certain length) within an array
 	public int I_MergeSegmentPairs(int l, int segmentLength)
 	{
-		//The length of the two merged segments 
+		//The length of the two merged segments
 
 		//You suppose  to complete this part (Given).
 		int mergedPairLength = 2 * segmentLength;
@@ -249,20 +316,17 @@ public class SortShow extends JPanel {
 			lines_lengths[index] = tempArray[index];
 	}
 
-	//////////////////////////////////////////////////////////////////////	
+	//////////////////////////////////////////////////////////////////////
 
 		public void InsertionSort(){
 			Calendar start = Calendar.getInstance();
 
 			for(int i = 1; i < total_number_of_lines-1; i++){
-				//Selecting the next unsorted element
-				int newVal = lines_lengths[i];
-				//Finding position of this element in the sorted portion of the array.
-				int pos = InsertionFindPos(i, newVal);
-				//Shifting sorted elements to allow for insertion of newVal.
+
+				int myVal = lines_lengths[i];
+				int pos = InsertionFindPos(i, myVal);
 				InsertionShiftRight(pos, i);
-				//Insertion of newVal.
-				lines_lengths[pos] = newVal;
+				lines_lengths[pos] = myVal;
 				paintComponent(this.getGraphics());
 				delay(10);
 			}
@@ -272,7 +336,6 @@ public class SortShow extends JPanel {
 			SortGUI.insertionTime = end.getTime().getTime() - start.getTime().getTime();
 
 		}
-		//This function determines which position a passed element will fit into the array.
 		public int InsertionFindPos(int last, int key){
 			int itr = 0;
 			while(key > lines_lengths[itr] && itr < last){
@@ -280,7 +343,6 @@ public class SortShow extends JPanel {
 			}
 			return itr;
 		}
-		//This function shifts all elements from indexes first to last-1 one position to the right.
 		public void InsertionShiftRight(int first, int last){
 			for(int itr = last; itr > first; itr--) {
 				lines_lengths[itr] = lines_lengths[itr - 1];
@@ -299,29 +361,7 @@ public class SortShow extends JPanel {
 			paintComponent(this.getGraphics());
 			}
 		}
-		public void BubbleSort(){
-			Calendar start = Calendar.getInstance();
 
-
-			Calendar end = Calendar.getInstance();
-			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
-		}
-
-		public void QuickSort(){
-			Calendar start = Calendar.getInstance();
-
-
-			Calendar end = Calendar.getInstance();
-			SortGUI.quickTime = end.getTime().getTime() - start.getTime().getTime();
-		}
-
-		public void ShellSort(){
-			Calendar start = Calendar.getInstance();
-
-
-			Calendar end = Calendar.getInstance();
-			SortGUI.shellTime = end.getTime().getTime() - start.getTime().getTime();
-		}
 	
 		//This method colours the lines and prints the lines
 		public void paintComponent(Graphics g){
