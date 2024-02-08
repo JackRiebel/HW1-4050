@@ -361,7 +361,29 @@ public class SortShow extends JPanel {
 			paintComponent(this.getGraphics());
 			}
 		}
+		public void BubbleSort(){
+			Calendar start = Calendar.getInstance();
 
+
+			Calendar end = Calendar.getInstance();
+			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
+		}
+
+		public void QuickSort(){
+			Calendar start = Calendar.getInstance();
+
+
+			Calendar end = Calendar.getInstance();
+			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
+		}
+
+		public void ShellSort(){
+			Calendar start = Calendar.getInstance();
+
+
+			Calendar end = Calendar.getInstance();
+			SortGUI.shellTime = end.getTime().getTime() - start.getTime().getTime();
+		}
 	
 		//This method colours the lines and prints the lines
 		public void paintComponent(Graphics g){
