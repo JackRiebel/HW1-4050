@@ -15,7 +15,6 @@ import java.util.Random;
 //The class that has all the sorts in it
 public class SortShow extends JPanel { 
 
-	
 		// An array to hold the lines_lengths to be sorted
 		public int[] lines_lengths;
 		//The amount of lines needed
@@ -76,7 +75,11 @@ public class SortShow extends JPanel {
 			//Using the selection sort to lines_lengths sort the array
 
 			//You need to complete this part.
-
+			for(int i = 0; i < total_number_of_lines-1; i ++){
+				swap(i, getIndexOfSmallest(i, total_number_of_lines-1));
+				paintComponent(this.getGraphics());
+				delay(10);
+			}
 			//getting the date and time when the selection sort ends
 			Calendar end = Calendar.getInstance();
 			//getting the time it took for the selection sort to execute 
@@ -88,8 +91,13 @@ public class SortShow extends JPanel {
 		public int getIndexOfSmallest(int first, int last){
 
 			//You need to complete this part.
-
-			return 1; //modify this line
+			int minIndex = first;
+			for(int i = first+1; i <= last; i++){
+				if(lines_lengths[i] < lines_lengths[minIndex]){
+					minIndex = i;
+				}
+			}
+			return minIndex;
 		}
 		
 	///////////////////////////////////////////////////////////////////////////////////
