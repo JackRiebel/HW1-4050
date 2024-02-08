@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 //The class that has all the sorts in it
-public class SortShow extends JPanel { 
+public class SortShow extends JPanel {
 
 		// An array to hold the lines_lengths to be sorted
 		public int[] lines_lengths;
@@ -23,33 +23,33 @@ public class SortShow extends JPanel {
 		public int[] scramble_lines;
 		//A temp Array that is used later for sorts
 		public int[] tempArray;
-		
+
 		//the default constructor for the SortShow class
 		public SortShow(){
 			//assigning the size for the lines_lengths below
 			lines_lengths = new int[total_number_of_lines];
-			for(int i = 0; i < total_number_of_lines; i++) 
+			for(int i = 0; i < total_number_of_lines; i++)
 				lines_lengths[i] =  i+5;
-			
+
 		}
-		
+
 
 		//A method that scrambles the lines
 		public void scramble_the_lines(){
 			//A random generator
-			Random num = new Random(); 
+			Random num = new Random();
 			//Randomly switching the lines
 			for(int i = 0; i < total_number_of_lines; i++){
 				//getting a random number using the nextInt method (a number between 0 to i + 1)
-				int j = num.nextInt(i + 1); 
-				//swapping The element at i and j 
+				int j = num.nextInt(i + 1);
+				//swapping The element at i and j
 				swap(i, j);
 			}
 			//assigning the size for the scramble_lines below
 			scramble_lines = new int[total_number_of_lines];
-			//copying the now scrambled lines_lengths array into the scramble_lines array 
+			//copying the now scrambled lines_lengths array into the scramble_lines array
 			//to store for reuse for other sort methods
-			//so that all sort methods will use the same scrambled lines for fair comparison 
+			//so that all sort methods will use the same scrambled lines for fair comparison
 			for (int i = 0; i < total_number_of_lines; i++)
 			{
 				scramble_lines[i] = lines_lengths[i];
@@ -57,7 +57,7 @@ public class SortShow extends JPanel {
 			//Drawing the now scrambled lines_lengths
 			paintComponent(this.getGraphics());
 		}
-		
+
 		//Swapping method that swaps two elements in the lines_lengths array
 		public void swap(int i, int j){
 			//storing the i element in lines_lengths in temp
@@ -67,7 +67,7 @@ public class SortShow extends JPanel {
 			//giving j element in lines_lengths the value of temp
 			lines_lengths[j] = temp;
 		}
-		
+
 		//The selectionSort method
 		public void SelectionSort(){
 			//getting the date and time when the selection sort starts
@@ -82,11 +82,11 @@ public class SortShow extends JPanel {
 			}
 			//getting the date and time when the selection sort ends
 			Calendar end = Calendar.getInstance();
-			//getting the time it took for the selection sort to execute 
+			//getting the time it took for the selection sort to execute
 			//subtracting the end time with the start time
 	        SortGUI.selectionTime = end.getTime().getTime() - start.getTime().getTime();
 		}
-		
+
 		//this method gets the smallest element in the array of lines_lengths
 		public int getIndexOfSmallest(int first, int last){
 
@@ -99,9 +99,9 @@ public class SortShow extends JPanel {
 			}
 			return minIndex;
 		}
-		
+
 	///////////////////////////////////////////////////////////////////////////////////
-		
+
 		//recursive merge sort method
 		public void R_MergeSort(){
 			//getting the date and time when the recursive merge sort starts
@@ -114,9 +114,9 @@ public class SortShow extends JPanel {
 			//getting the time it took for the iterative merge sort to execute
 			//subtracting the end time with the start time
 	        SortGUI.rmergeTime = end.getTime().getTime() - start.getTime().getTime();
-			
+
 		}
-		
+
 		//recursive merge sort method
 		public void R_MergeSort(int first, int last){
 			if(first < last){
@@ -124,42 +124,42 @@ public class SortShow extends JPanel {
 				//You need to complete this part.
 
 				//Causing a delay for 10ms
-				delay(10); 
+				delay(10);
 			}
 		}
 
-		
+
 		//recursive merge sort method
 		public void R_Merge(int first, int mid, int last){
 
 			//You need to complete this part.
-				
+
 		}
-		
+
 		//
 
 	//////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		//iterative merge sort method
 		public void I_MergeSort()
 		{
 		//getting the date and time when the iterative merge sort starts
 		Calendar start = Calendar.getInstance();
 		//assigning the size for the tempArray below
-		tempArray = new int[total_number_of_lines]; 
+		tempArray = new int[total_number_of_lines];
 		//saving the value of total_number_of_lines
 		int beginLeftovers = total_number_of_lines;
 
-		
+
 		for (int segmentLength = 1; segmentLength <= total_number_of_lines/2; segmentLength = 2*segmentLength)
 		{
 			beginLeftovers = I_MergeSegmentPairs(total_number_of_lines, segmentLength);
 			int endSegment = beginLeftovers + segmentLength - 1;
-			if (endSegment < total_number_of_lines - 1) 
+			if (endSegment < total_number_of_lines - 1)
 			{
 			I_Merge(beginLeftovers, endSegment, total_number_of_lines - 1);
 			}
-		} 
+		}
 
 		// merge the sorted leftovers with the rest of the sorted array
 		if (beginLeftovers < total_number_of_lines) {
@@ -170,7 +170,7 @@ public class SortShow extends JPanel {
 		//getting the time it took for the iterative merge sort to execute 
 		//subtracting the end time with the start time
 	    SortGUI.imergeTime = end.getTime().getTime() - start.getTime().getTime();
-	} 
+	}
 
 	// Merges segments pairs (certain length) within an array 
 	public int I_MergeSegmentPairs(int l, int segmentLength)
@@ -248,7 +248,37 @@ public class SortShow extends JPanel {
 	}
 
 	//////////////////////////////////////////////////////////////////////	
-		
+
+		public void InsertionSort(){
+			Calendar start = Calendar.getInstance();
+
+			for(int i = 1; i < total_number_of_lines-1; i++){
+
+				int myVal = lines_lengths[i];
+				int pos = InsertionFindPos(i, myVal);
+				InsertionShiftRight(pos, i);
+				lines_lengths[pos] = myVal;
+				paintComponent(this.getGraphics());
+				delay(10);
+			}
+
+
+			Calendar end = Calendar.getInstance();
+			SortGUI.insertionTime = end.getTime().getTime() - start.getTime().getTime();
+
+		}
+		public int InsertionFindPos(int last, int key){
+			int itr = 0;
+			while(key > lines_lengths[itr] && itr < last){
+				itr++;
+			}
+			return itr;
+		}
+		public void InsertionShiftRight(int first, int last){
+			for(int itr = last; itr > first; itr--) {
+				lines_lengths[itr] = lines_lengths[itr - 1];
+			}
+		}
 		//This method resets the window to the scrambled lines display
 		public void reset(){
 			if(scramble_lines != null)
@@ -260,9 +290,9 @@ public class SortShow extends JPanel {
 				}
 			//Drawing the now scrambled lines_lengths
 			paintComponent(this.getGraphics());
-		}
 			}
-		
+		}
+
 	
 		//This method colours the lines and prints the lines
 		public void paintComponent(Graphics g){
