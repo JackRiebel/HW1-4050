@@ -76,7 +76,9 @@ public class SortShow extends JPanel {
 
 			//You need to complete this part.
 			for(int i = 0; i < total_number_of_lines-1; i ++){
+				//Finding the smallest element of the remaining array and swapping it for the next spot in the sorted portion.
 				swap(i, getIndexOfSmallest(i, total_number_of_lines-1));
+
 				paintComponent(this.getGraphics());
 				delay(10);
 			}
@@ -253,11 +255,14 @@ public class SortShow extends JPanel {
 			Calendar start = Calendar.getInstance();
 
 			for(int i = 1; i < total_number_of_lines-1; i++){
-
-				int myVal = lines_lengths[i];
-				int pos = InsertionFindPos(i, myVal);
+				//Selecting the next unsorted element
+				int newVal = lines_lengths[i];
+				//Finding position of this element in the sorted portion of the array.
+				int pos = InsertionFindPos(i, newVal);
+				//Shifting sorted elements to allow for insertion of newVal.
 				InsertionShiftRight(pos, i);
-				lines_lengths[pos] = myVal;
+				//Insertion of newVal.
+				lines_lengths[pos] = newVal;
 				paintComponent(this.getGraphics());
 				delay(10);
 			}
@@ -267,6 +272,7 @@ public class SortShow extends JPanel {
 			SortGUI.insertionTime = end.getTime().getTime() - start.getTime().getTime();
 
 		}
+		//This function determines which position a passed element will fit into the array.
 		public int InsertionFindPos(int last, int key){
 			int itr = 0;
 			while(key > lines_lengths[itr] && itr < last){
@@ -274,6 +280,7 @@ public class SortShow extends JPanel {
 			}
 			return itr;
 		}
+		//This function shifts all elements from indexes first to last-1 one position to the right.
 		public void InsertionShiftRight(int first, int last){
 			for(int itr = last; itr > first; itr--) {
 				lines_lengths[itr] = lines_lengths[itr - 1];
@@ -292,7 +299,29 @@ public class SortShow extends JPanel {
 			paintComponent(this.getGraphics());
 			}
 		}
+		public void BubbleSort(){
+			Calendar start = Calendar.getInstance();
 
+
+			Calendar end = Calendar.getInstance();
+			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
+		}
+
+		public void QuickSort(){
+			Calendar start = Calendar.getInstance();
+
+
+			Calendar end = Calendar.getInstance();
+			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
+		}
+
+		public void ShellSort(){
+			Calendar start = Calendar.getInstance();
+
+
+			Calendar end = Calendar.getInstance();
+			SortGUI.shellTime = end.getTime().getTime() - start.getTime().getTime();
+		}
 	
 		//This method colours the lines and prints the lines
 		public void paintComponent(Graphics g){
