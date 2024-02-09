@@ -396,10 +396,23 @@ public class SortShow extends JPanel {
 		public void ShellSort(){
 			Calendar start = Calendar.getInstance();
 
+			for (int gap = total_number_of_lines / 2; gap > 0; gap /= 2) {
+				for (int i = gap; i < n; i+= 1) {
+					int temp = lines_lengths[i];
+					int j;
+					for (j = i; j >= gap && lines_lengths[j - gap] > temp; j -= gap) {
+						lines_lengths[j] = lines_lengths[j - gap];
+					}
+					lines_lengths[j] = temp;
+				}
+
+				paintComponent(this.getGraphics());
+				delay(10);
+			}
 
 			Calendar end = Calendar.getInstance();
 			SortGUI.shellTime = end.getTime().getTime() - start.getTime().getTime();
-		}
+		} // End ShellSort
 	
 		//This method colours the lines and prints the lines
 		public void paintComponent(Graphics g){
