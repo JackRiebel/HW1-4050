@@ -366,9 +366,20 @@ public class SortShow extends JPanel {
 			paintComponent(this.getGraphics());
 			}
 		}
+		//////////////////////////////////////////////////////////
+
 		public void BubbleSort(){
 			Calendar start = Calendar.getInstance();
-
+			for(int i = 0; i < total_number_of_lines; i++){
+				for(int j = 0; j < total_number_of_lines-i-1; j++){
+					//If current index is greater than the next, swap.
+					if(lines_lengths[j] > lines_lengths[j+1]){
+						swap(j, j+1);
+					}
+				}
+				paintComponent(this.getGraphics());
+				delay(10);
+			}
 
 			Calendar end = Calendar.getInstance();
 			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
