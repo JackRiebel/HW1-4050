@@ -384,14 +384,48 @@ public class SortShow extends JPanel {
 			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
 		}
 
+	///////////////////////////////////////////////////////////////////////////////////
+
 		public void QuickSort(){
 			Calendar start = Calendar.getInstance();
 
+			quickSort(0, total_number_of_lines - 1);
 
 			Calendar end = Calendar.getInstance();
 			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
 		}
 
+		private void quickSort(int first, int last) {
+			if (first < last) {
+				int pivotIndex = partition(first, last);
+				quickSort(first, pivotIndex - 1);
+				quickSort(pivotIndex + 1, last);
+			}
+		}
+
+		private int partition(int first, int last) {
+			int pivot = lines_lengths[last];
+			int i = (first - 1);
+
+			for (int j = first; j < last; j++) {
+				if (lines_lengths[j] <= pivot) {
+					i++;
+
+					int temp = lines_lengths[i];
+					lines_lengths[i] = lines_lengths[j];
+					lines_lengths[j] = temp;
+				}
+			}
+
+			int temp = lines_lengths[i + 1];
+			lines_lengths[i + 1] = lines_lengths[last];
+			lines_lengths[last] = temp;
+
+			paintComponent(this.getGraphics());
+			delay(10);
+
+			return i + 1;
+		}
 
 		public void ShellSort(){
 			Calendar start = Calendar.getInstance();
