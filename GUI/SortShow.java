@@ -397,7 +397,7 @@ public class SortShow extends JPanel {
 			Calendar start = Calendar.getInstance();
 
 			for (int gap = total_number_of_lines / 2; gap > 0; gap /= 2) {
-				for (int i = gap; i < n; i+= 1) {
+				for (int i = gap; i < total_number_of_lines; i+= 1) {
 					int temp = lines_lengths[i];
 					int j;
 					for (j = i; j >= gap && lines_lengths[j - gap] > temp; j -= gap) {
