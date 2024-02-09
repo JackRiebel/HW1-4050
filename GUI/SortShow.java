@@ -398,46 +398,56 @@ public class SortShow extends JPanel {
 		private void quickSort(int first, int last) {
 			if (first < last) {
 				int pivotIndex = partition(first, last);
-				quickSort(first, pivotIndex - 1);
-				quickSort(pivotIndex + 1, last);
+				quickSort(first, pivotIndex - 1); // Sort left side
+				quickSort(pivotIndex + 1, last); // Sort right side
 			}
 		}
 
 		private int partition(int first, int last) {
 			int pivot = lines_lengths[last];
-			int i = (first - 1);
+			int i = (first - 1); // Index of smaller element
 
 			for (int j = first; j < last; j++) {
-				if (lines_lengths[j] <= pivot) {
+				if (lines_lengths[j] <= pivot) { // If Current element smaller or equal to pivot
 					i++;
 
+					// Swap lines_lengths[i] and lines_lengths[j]
 					int temp = lines_lengths[i];
 					lines_lengths[i] = lines_lengths[j];
 					lines_lengths[j] = temp;
 				}
 			}
 
+			// Swap lines_lengths[i+1] and lines_lengths[last]
 			int temp = lines_lengths[i + 1];
 			lines_lengths[i + 1] = lines_lengths[last];
 			lines_lengths[last] = temp;
 
+			// Update GUI
 			paintComponent(this.getGraphics());
 			delay(10);
 
-			return i + 1;
+			return i + 1; // Return partitioning index
 		}
 
 		public void ShellSort(){
 			Calendar start = Calendar.getInstance();
 
+			// Start with widest possible gap and then half it each iteration
 			for (int gap = total_number_of_lines / 2; gap > 0; gap /= 2) {
+
+				// Continue to add more elements to the gap
 				for (int i = gap; i < total_number_of_lines; i+= 1) {
-					int temp = lines_lengths[i];
+					int temp = lines_lengths[i]; // Hold element at index i
+
+					// Shift sorted gap elements up until correct location for lines_lengths[i]
 					int j;
 					for (j = i; j >= gap && lines_lengths[j - gap] > temp; j -= gap) {
 						lines_lengths[j] = lines_lengths[j - gap];
 					}
 					lines_lengths[j] = temp;
+
+					// Update GUI
 					paintComponent(this.getGraphics());
 					delay(1);
 				}
