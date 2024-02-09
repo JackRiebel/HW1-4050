@@ -441,7 +441,6 @@ public class SortShow extends JPanel {
 					paintComponent(this.getGraphics());
 					delay(1);
 				}
-
 			}
 
 			Calendar end = Calendar.getInstance();
