@@ -104,34 +104,16 @@ public class SortShow extends JPanel {
 
 		//recursive merge sort method
 		public void R_MergeSort(){
-			//getting the date and time when the iterative merge sort starts
+			//getting the date and time when the recursive merge sort starts
 			Calendar start = Calendar.getInstance();
-			//assigning the size for the tempArray below
-			tempArray = new int[total_number_of_lines];
-			//saving the value of total_number_of_lines
-			int beginLeftovers = total_number_of_lines;
 
+			R_MergeSort(0, total_number_of_lines-1);
 
-			for (int segmentLength = 1; segmentLength <= total_number_of_lines/2; segmentLength = 2*segmentLength)
-			{
-				beginLeftovers = I_MergeSegmentPairs(total_number_of_lines, segmentLength);
-				int endSegment = beginLeftovers + segmentLength - 1;
-				if (endSegment < total_number_of_lines - 1)
-				{
-					I_Merge(beginLeftovers, endSegment, total_number_of_lines - 1);
-				}
-			}
-
-			// merge the sorted leftovers with the rest of the sorted array
-			if (beginLeftovers < total_number_of_lines) {
-				I_Merge(0, beginLeftovers-1, total_number_of_lines - 1);
-			}
 			//getting the date and time when the recursive merge sort ends
 			Calendar end = Calendar.getInstance();
-			//getting the time it took for the iterative merge sort to execute
-			//subtracting the end time with the start time
-			SortGUI.rmergeTime = end.getTime().getTime() - start.getTime().getTime();
 
+			//getting the time it took for the recursive merge sort to execute
+			//subtracting the end time with the start time
 	        SortGUI.rmergeTime = end.getTime().getTime() - start.getTime().getTime();
 
 		}
