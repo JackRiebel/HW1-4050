@@ -392,7 +392,7 @@ public class SortShow extends JPanel {
 			quickSort(0, total_number_of_lines - 1);
 
 			Calendar end = Calendar.getInstance();
-			SortGUI.bubbleTime = end.getTime().getTime() - start.getTime().getTime();
+			SortGUI.quickTime = end.getTime().getTime() - start.getTime().getTime();
 		}
 
 		private void quickSort(int first, int last) {
@@ -430,10 +430,23 @@ public class SortShow extends JPanel {
 		public void ShellSort(){
 			Calendar start = Calendar.getInstance();
 
+			for (int gap = total_number_of_lines / 2; gap > 0; gap /= 2) {
+				for (int i = gap; i < total_number_of_lines; i+= 1) {
+					int temp = lines_lengths[i];
+					int j;
+					for (j = i; j >= gap && lines_lengths[j - gap] > temp; j -= gap) {
+						lines_lengths[j] = lines_lengths[j - gap];
+					}
+					lines_lengths[j] = temp;
+					paintComponent(this.getGraphics());
+					delay(1);
+				}
+
+			}
 
 			Calendar end = Calendar.getInstance();
 			SortGUI.shellTime = end.getTime().getTime() - start.getTime().getTime();
-		}
+		} // End ShellSort
 	
 		//This method colours the lines and prints the lines
 		public void paintComponent(Graphics g){
